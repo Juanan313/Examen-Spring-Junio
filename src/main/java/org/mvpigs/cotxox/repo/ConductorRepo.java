@@ -17,4 +17,8 @@ public interface ConductorRepo extends CrudRepository<Conductor, String>  {
 
     @Query("select conductor from Conductor conductor where conductor.ocupado = ?1")
     public ArrayList<Conductor> findByOcupado(int ocupado);
+
+    @Query("select conductor.valoracionMedia from Conductor conductor where conductor = ?1")
+    public double getValoracionMedia(Conductor conductor);
+    
 }

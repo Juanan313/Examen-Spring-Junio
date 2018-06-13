@@ -24,6 +24,12 @@ public class ConductorService {
         return conductorRepo.findByOcupado(0).get(0);
     }
 
+    public Conductor añadirValoracion(Conductor conductor, byte valoracion) {
+        conductor.setValoracion(valoracion);
+
+        return conductorRepo.save(conductor);
+    }
+
     public void init() {
 
         Conductor conductorA = new Conductor("2222222222222222");

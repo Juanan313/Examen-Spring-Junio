@@ -1,5 +1,7 @@
 package org.mvpigs.cotxox;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -269,4 +271,22 @@ public class CotxoxApplicationTests {
 	 *  - Càlcul de la mitjana de valoracions d'un conductor/a mitjançant @Query
 	 *    al CrudRepositori de CarrerasRepo.
 	 */
+	@Test
+	 public void introduccioValoracioTest() {
+
+		Conductor conductor = conductorService.recuperarConductor("1111111111111111");
+		byte valoracion = 2;
+		Conductor conductorValorado = conductorService.añadirValoracion(conductor, valoracion);
+
+		assertEquals(2, conductorValorado.getValoracion(), 1 );
+	 }
+
+	 @Test
+	 public void getValoracionMediaRepo() {
+		Conductor conductor = conductorService.recuperarConductor("1111111111111111");
+		byte valoracion = 2;
+		conductorService.añadirValoracion(conductor, valoracion);
+
+		assertEquals(2, conductorRepo.getValoracionMedia(conductor), 0.1);
+	 }
 }

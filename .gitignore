@@ -25,3 +25,4 @@ nbdist/
 
 .vscode/
 .sts4-cache/
+.idea/

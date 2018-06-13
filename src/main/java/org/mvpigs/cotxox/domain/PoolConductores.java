@@ -30,7 +30,7 @@ public class PoolConductores {
 	 */
 
 	public Conductor asignarConductor(){
-		Conductor conductor = new Conductor();
+	Conductor conductor = new Conductor();
 		Random aleatorio = new Random();
 		boolean asignado = false;
 		while(!asignado){

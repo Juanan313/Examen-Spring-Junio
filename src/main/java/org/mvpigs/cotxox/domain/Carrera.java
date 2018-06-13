@@ -1,15 +1,29 @@
 package org.mvpigs.cotxox.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="t_carreras")
 public class Carrera {
 
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="c_id")
     private Long id;
+	@Column(name="c_tarjeta_credito")
 	private String tarjetaCredito = null;
+	@Column(name="c_origen")
 	private String origen = null;
+	@Column(name="c_destino")
 	private String destino = null;
+	@Column (name="c_distancia")
 	private double distancia = 0d;
+	@Column (name="c_tiempo_esperado")
 	private int tiempoEsperado = 0;
+	@Column (name="c_tiempo_carrera")
 	private int tiempoCarrera = 0;
+	@Column(name="c_coste_total")
 	private double costeTotal = 0;
+	@Column(name="c:propina")
 	private int propina = 0;	
 	private Conductor conductor = null;
 	
@@ -21,6 +35,8 @@ public class Carrera {
 	public Carrera(String tarjetaCredito){
 		this.tarjetaCredito = tarjetaCredito;
 	}
+
+	public Carrera(){};
 	
 	/** 
 	 * Getters y setters

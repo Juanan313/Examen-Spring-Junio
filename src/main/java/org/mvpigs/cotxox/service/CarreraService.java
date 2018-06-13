@@ -30,4 +30,8 @@ public class CarreraService {
         return carrera.get();
     }
 
+    public Carrera updateCarrera(Carrera carrera) {
+        return carreraRepo.save(carrera);
+    }
+
 }

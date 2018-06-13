@@ -199,5 +199,74 @@ public class CotxoxApplicationTests {
 	   Assert.assertEquals(false,conductorService.recuperarConductor("3333333333333333").isOcupado());
 	}
 
+	/**
+	  * Implementa un métode en el repositori de l'entitat Conductor 
+	  * que retorni una llista de conductores lliures
+	  */
 
+	 @Test
+	 public void test_recuperar_conductor_libre_repositori() {
+		
+		// només n'hi ha una conductora, Samantha, a la BBDD
+
+		List<Conductor> conductoresLibres = conductorRepo.findByOcupado(0);
+		Assert.assertNotNull(conductoresLibres);
+		Assert.assertEquals("Samantha", conductoresLibres.get(0).getNombre());
+		Assert.assertEquals(false, conductoresLibres.get(0).isOcupado());
+
+		// introduïm més conductores a la BBDD
+
+		conductorService.init();
+		conductoresLibres = conductorRepo.findByOcupado(0);
+		Assert.assertEquals(3, conductoresLibres.size());
+		Assert.assertEquals(false, conductoresLibres.get(1).isOcupado());
+	}
+
+	/** 
+	 * Implementa un mètode en el servei de l'entitat Conductor 
+	 * que retorni una llista de conductores lliures
+	 */
+
+	@Test
+	public void tets_conductor_libre_service() {
+
+		conductorService.init();
+
+		// como en el caso test se entiende que ha devolver un solo parametro lo gestiono asi
+		// aunque el enunciado diga una lista
+		Conductor conductora = conductorService.recuperarConductorLibre();
+		Assert.assertNotNull(conductora);
+		Assert.assertEquals(false, conductora.isOcupado());
+	}
+
+	/**
+	 * Assigna una conductora a una carrera que ja existeix a la BBDD
+	 * i comprova que s'ha actualitzat el registre
+	 */
+
+	@Test
+	public void test_asignar_conductor() {
+		Long idCarrera = carreraService.crearCarrera("1234567890123456", "Parc de Ses Estacions", "Festival Park", 15, 18);
+		// seria necesario añadir el conductor pero vamos a testear primero repo
+		Assert.assertEquals("1234567890123456", carreraService.recuperaCarrera(idCarrera).getTarjetaCredito());
+
+		Carrera carrera = carreraService.recuperaCarrera(idCarrera);
+		Assert.assertNotNull(carrera);
+
+		Conductor conductora = conductorService.recuperarConductorLibre();
+		Assert.assertNotNull(conductora);
+
+		carrera.setConductor(conductora);
+		Assert.assertEquals("Samantha", carrera.getConductor().getNombre());
+
+		carreraService.updateCarrera(carrera);
+		Assert.assertEquals("Samantha", carreraService.recuperaCarrera(idCarrera).getConductor().getNombre());
+	}
+
+	/**
+	 * A completar:
+	 *  - Introducció de la valoració que l'usuari/a fa del conductor/a al termini de la carrera.
+	 *  - Càlcul de la mitjana de valoracions d'un conductor/a mitjançant @Query
+	 *    al CrudRepositori de CarrerasRepo.
+	 */
 }

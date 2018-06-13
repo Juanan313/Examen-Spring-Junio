@@ -20,13 +20,17 @@ public class ConductorService {
         conductorRepo.save(conductor);
     };
 
+    public Conductor recuperarConductorLibre() {
+        return conductorRepo.findByOcupado(0).get(0);
+    }
+
     public void init() {
 
         Conductor conductorA = new Conductor("2222222222222222");
         conductorA.setMatricula("5DHJ444");
         conductorA.setModelo("Toyota Prius");
         conductorA.setOcupado(false);
-        
+
         Conductor conductorB = new Conductor("3333333333333333");
         conductorA.setMatricula("7JKK555");
         conductorA.setModelo("Mercedes A");

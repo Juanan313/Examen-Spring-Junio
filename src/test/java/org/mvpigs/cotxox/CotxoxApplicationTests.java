@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.mvpigs.cotxox.domain.Carrera;
 import org.mvpigs.cotxox.domain.Conductor;
 import org.mvpigs.cotxox.repo.CarreraRepo;
+import org.mvpigs.cotxox.repo.ConductorRepo;
 import org.mvpigs.cotxox.service.CarreraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,8 +48,8 @@ public class CotxoxApplicationTests {
 	  @Autowired(required=false)
       CarreraService carreraService;
 
-	//  @Autowired(required=false)
-	//  ConductorRepo conductorRepo;
+	  @Autowired(required=false)
+	  ConductorRepo conductorRepo;
 
 	//  @Autowired(required=false)
 	//  ConductorService conductorService;
@@ -104,5 +105,18 @@ public class CotxoxApplicationTests {
         Long idCarrera = carreraService.crearCarrera("1234567890123456", "Parc de Ses Estacions", "Festival Park", 15, 18);
         // seria necessari afegir el conductor però anem a testear primer repo
         Assert.assertEquals("1234567890123456", carreraService.recuperaCarrera(idCarrera).getTarjetaCredito());
-    }
+	}
+	
+	/**
+	 * Crea una classe ConductorRepo que sigui un repositori Spring Data 
+	 * per l'entitat Conductor
+	 */
+	@Test
+	public void test_ConductorRepo_es_repositori() { 
+		Assert.assertNotNull(conductorRepo);
+		Assert.assertTrue(conductorRepo instanceof Repository);
+	}
+
+	
+
 }

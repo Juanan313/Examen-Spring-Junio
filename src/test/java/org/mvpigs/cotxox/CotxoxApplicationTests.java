@@ -130,4 +130,74 @@ public class CotxoxApplicationTests {
 		Assert.assertEquals("Samantha", conductor.getNombre());
 	}
 
+	/** 
+	 * Completa el codi del cas test test_save_conductor() 
+	 * per a afegir les conductores següents a la BBDD 
+	 * mitjançant el servei de l'entitat conductor:
+	 * 
+	 * String[] nombres = {"Sabrina", "Cici"};
+	 * String[] matricula = {"5DHJ444", "7JKK555"};
+	 * String[] modelos = {"Toyota Prius", "Mercedes A"};
+	 */
+
+	@Test
+	public void test_save_conductor() {
+		
+		/**
+		 * Escriu aqui el codi per a crear les conductores 
+		 * i escriure-les a la base de dades
+		 */
+
+		 Conductor conductorA = new Conductor("2222222222222222");
+		 conductorA.setMatricula("5DHJ444");
+		 conductorA.setModelo("Toyota Prius");
+	
+		 Conductor conductorB = new Conductor("3333333333333333");
+		 conductorA.setMatricula("7JKK555");
+		 conductorA.setModelo("Mercedes A");
+
+		 conductorService.guardaRegistroConductor(conductorA);
+		 conductorService.guardaRegistroConductor(conductorB);
+
+
+		Assert.assertEquals("Sabrina", conductorService.recuperarConductor("2222222222222222").getNombre());
+		Assert.assertEquals("Cici", conductorService.recuperarConductor("3333333333333333").getNombre());
+		
+	}
+
+	/** 
+	 * Modifica l'atribut ocupat de l'entitat Conductor i la lògica 
+	 * del mètodes setOcupado() i isOcupado() 
+	 * per a adaptar-lo al TINYINT de MySQL 
+	 */
+
+	@Test
+	public void test_BooleanOcupado_adaptado_a_SQL() {
+		Conductor conductora = conductorService.recuperarConductor("1111111111111111");
+		Assert.assertEquals("Samantha", conductora.getNombre());
+		Assert.assertEquals(false, conductora.isOcupado());
+		conductora.setOcupado(true);
+		Assert.assertEquals(true, conductora.isOcupado());
+	}
+
+	/**
+	 * Modifica el servei de l'entitat conductor amb un mètode init() per a inserir 
+	 * a la base de dades les conductores següents, totes dues desocupades:
+	 * String[] nombres = {"Sabrina", "Cici"};
+	 * String[] matricula = {"5DHJ444", "7JKK555"};
+	 * String[] modelos = {"Toyota Prius", "Mercedes A"} 
+	 */
+
+	@Test
+	public void test_post_construct_servei_conductor() {
+	   
+	   conductorService.init();
+
+	   Assert.assertEquals("Sabrina", conductorService.recuperarConductor("2222222222222222").getNombre());
+	   Assert.assertEquals(false,conductorService.recuperarConductor("2222222222222222").isOcupado());
+	   Assert.assertEquals("Cici", conductorService.recuperarConductor("3333333333333333").getNombre());
+	   Assert.assertEquals(false,conductorService.recuperarConductor("3333333333333333").isOcupado());
+	}
+
+
 }

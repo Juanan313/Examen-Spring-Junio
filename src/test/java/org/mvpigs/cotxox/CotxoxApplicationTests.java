@@ -11,6 +11,7 @@ import org.mvpigs.cotxox.domain.Conductor;
 import org.mvpigs.cotxox.repo.CarreraRepo;
 import org.mvpigs.cotxox.repo.ConductorRepo;
 import org.mvpigs.cotxox.service.CarreraService;
+import org.mvpigs.cotxox.service.ConductorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.repository.Repository;
@@ -51,8 +52,8 @@ public class CotxoxApplicationTests {
 	  @Autowired(required=false)
 	  ConductorRepo conductorRepo;
 
-	//  @Autowired(required=false)
-	//  ConductorService conductorService;
+	  @Autowired(required=false)
+	 	ConductorService conductorService;
 
 	@PersistenceContext
 	private EntityManager em;
@@ -117,6 +118,16 @@ public class CotxoxApplicationTests {
 		Assert.assertTrue(conductorRepo instanceof Repository);
 	}
 
-	
+	/** 
+	 * Implementa el servei de l'entitat conductor i el seu repositori 
+	 * per a recuperar un conductor per la seva targeta de crèdit. 
+	 */
+
+	@Test 
+	public void test_recuperar_conductor() {
+		Conductor conductor = conductorService.recuperarConductor("1111111111111111");
+		Assert.assertNotNull(conductor);
+		Assert.assertEquals("Samantha", conductor.getNombre());
+	}
 
 }
